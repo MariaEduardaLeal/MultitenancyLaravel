@@ -38,6 +38,8 @@
                     <input type="hidden" name="domain" value="localhost">
                 </div>
 
+                <input type="file" name="logo">
+
                 <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors shadow-lg shadow-blue-200 active:transform active:scale-95">
                     Criar Loja Agora
                 </button>
