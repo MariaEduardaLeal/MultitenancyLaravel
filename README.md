@@ -1,59 +1,88 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+🚀 Guia de Instalação: Fábrica de Sites (SaaS Multitenant)
+Este projeto utiliza o Laravel com a biblioteca stancl/tenancy para criar um ecossistema onde cada loja tem seu próprio banco de dados e identidade visual.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+1. Pré-requisitos Técnicos
+Antes de começar, você precisará de:
 
-## About Laravel
+PHP 8.2+
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Composer
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+MySQL (XAMPP, WAMP, Laragon ou Docker)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Git
 
-## Learning Laravel
+2. Instalação Passo a Passo
+1. Clonar e Instalar Dependências
+Abra o terminal e execute:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+```php
+git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio
+composer install
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. Configurar o Ambiente (.env)
+Copie o arquivo de exemplo e gere a chave da aplicação:
 
-## Laravel Sponsors
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-### Premium Partners
+3. Configurar o Banco de Dados (MySQL)
+Crie um banco de dados vazio chamado multitenant_central no seu MySQL.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+No seu arquivo .env, ajuste as credenciais de banco:
 
-## Contributing
+```bash
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=multitenant_central
+DB_USERNAME=seu_usuario
+DB_PASSWORD=sua_senha
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. Migrações e Storage
+Rode as migrações do banco central e crie o link para as imagens:
 
-## Code of Conduct
+```bash
+php artisan migrate
+php artisan storage:link
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3. Rodando sem editar o arquivo hosts
+Para facilitar a vida e não precisar editar o arquivo hosts do Windows, utilizaremos o domínio lvh.me, que aponta automaticamente para o seu localhost.
 
-## Security Vulnerabilities
+No seu .env, garanta que a URL base seja:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+APP_URL=http://localhost:8000
 
-## License
+Inicie o servidor do Laravel:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+php artisan serve
+```
+
+4. Como testar a aplicação
+Passo 1: O Painel da Eduarda
+Acesse http://localhost:8000. Você verá o Dashboard Administrativo onde pode listar e criar novos clientes.
+
+Passo 2: Criar uma Loja
+No formulário "Provisionar Novo Inquilino", digite um nome (ex: loja1) e clique em criar. O sistema irá:
+
+Criar um banco MySQL chamado tenant_loja1.
+
+Criar um usuário administrador padrão para essa loja.
+
+Registrar o domínio loja1.localhost.
+
+Passo 3: Personalizar a Loja
+Acesse o link gerado (ex: http://loja1.localhost:8000/).
+
+Vá em Configurações e escolha uma cor e uma logo.
+
+Volte para a Home e cadastre seu primeiro produto usando o modal.
+
