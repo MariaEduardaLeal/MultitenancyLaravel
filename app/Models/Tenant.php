@@ -10,4 +10,14 @@ use Stancl\Tenancy\Database\Concerns\HasDomains;
 class Tenant extends BaseTenant implements TenantWithDatabase
 {
     use HasDatabase, HasDomains;
+
+    public function getThemeColorAttribute()
+    {
+        return $this->data['primary_color'] ?? '#3b82f6'; 
+    }
+
+    public function getLogoAttribute()
+    {
+        return $this->data['logo_url'] ?? '/images/default-logo.png';
+    }
 }
