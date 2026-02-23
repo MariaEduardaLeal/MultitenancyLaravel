@@ -13,11 +13,20 @@ class Tenant extends BaseTenant implements TenantWithDatabase
 
     public function getThemeColorAttribute()
     {
-        return $this->data['primary_color'] ?? '#3b82f6'; 
+        return $this->data['primary_color'] ?? '#3b82f6';
     }
 
     public function getLogoAttribute()
     {
         return $this->data['logo_url'] ?? '/images/default-logo.png';
+    }
+
+    public function getUrlAttribute()
+    {
+        $domain = $this->domains()->first()->domain;
+        $port = parse_url(config('app.url'), PHP_URL_PORT);
+        $portSuffix = $port ? ":$port" : "";
+
+        return "http://{$domain}{$portSuffix}";
     }
 }
