@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin | {{ config('app.name', 'Fábrica de Sites') }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-50 text-gray-900 font-sans antialiased">
 
     <div class="max-w-6xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -46,12 +48,12 @@
             </form>
 
             @if(session('success'))
-                <div class="mt-4 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 flex items-center">
-                    <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                    </svg>
-                    {!! session('success') !!}
-                </div>
+            <div class="mt-4 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 flex items-center">
+                <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                {!! session('success') !!}
+            </div>
             @endif
         </section>
 
@@ -76,11 +78,14 @@
                         <tr class="hover:bg-blue-50/30 transition-colors">
                             <td class="px-8 py-5 font-medium text-gray-900 capitalize">{{ $tenant->id }}</td>
                             <td class="px-6 py-5">
-                                <a href="http://{{ $tenant->domains->first()->domain }}:8000" target="_blank"
-                                   class="text-blue-600 hover:text-blue-800 flex items-center group font-medium">
+
+                                <a href="{{ $tenant->url }}"
+                                    target="_blank"
+                                    class="text-blue-600 hover:text-blue-800 flex items-center group font-medium">
                                     {{ $tenant->domains->first()->domain }}
+
                                     <svg class="h-4 w-4 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </a>
                             </td>
@@ -104,9 +109,9 @@
             </div>
 
             @if($tenants->isEmpty())
-                <div class="py-20 text-center text-gray-400">
-                    Nenhuma loja cadastrada ainda. Use o formulário acima para começar!
-                </div>
+            <div class="py-20 text-center text-gray-400">
+                Nenhuma loja cadastrada ainda. Use o formulário acima para começar!
+            </div>
             @endif
         </section>
 
@@ -116,4 +121,5 @@
     </div>
 
 </body>
+
 </html>

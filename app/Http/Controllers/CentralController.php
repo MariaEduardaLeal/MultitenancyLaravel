@@ -50,6 +50,7 @@ class CentralController extends Controller
             ]);
         });
 
-        return back()->with('success', "Loja criada! Acesse: http://{$validated['id']}.{$validated['domain']}:8000");
+        // Procure esta linha no método store:
+        return back()->with('success', "Loja criada! Acesse: http://{$validated['id']}.{$validated['domain']}:8081");
     }
 }
